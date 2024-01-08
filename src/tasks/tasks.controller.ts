@@ -1,28 +1,19 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
+import { TasksService } from './tasks.service';
 import { Task } from './types/Task';
-import { statusList } from './types/status';
+import { UpdateTaskStatus } from './types/update-task-status';
 
 @Controller('tasks')
 export class TasksController {
-  constructor() {}
-
-  private tasks: Task[] = [
-    {
-      id: '1',
-      status: statusList[1],
-      title: 'Create Taskify application',
-      description: 'Initial code to showcase some features.',
-    },
-    {
-      id: '2',
-      status: statusList[1],
-      title: 'Create GitHub repository',
-      description: 'Create repo and push code to it',
-    },
-  ];
+  constructor(private taskService: TasksService) {}
 
   @Get()
   getAllTasks(): Task[] {
-    return this.tasks;
+    return this.taskService.getAllTasks();
+  }
+
+  @Post('/:id')
+  updateTaskStatus(@Body() data: UpdateTaskStatus): Task {
+    return this.taskService.updateTaskStatus(data);
   }
 }
