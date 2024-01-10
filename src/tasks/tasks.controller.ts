@@ -8,8 +8,8 @@ export class TasksController {
   constructor(private taskService: TasksService) {}
 
   @Get()
-  getAllTasks(): Task[] {
-    return this.taskService.getAllTasks();
+  async getAllTasks(): Promise<Task[]> {
+    return await this.taskService.getAllTasks({});
   }
 
   @Post('/:id')
