@@ -31,6 +31,6 @@ export class TasksService {
   }
 
   remove(id: number) {
-    return `This action removes a #${id} task`;
+    return this.prisma.task.delete({ where: { id } });
   }
 }
