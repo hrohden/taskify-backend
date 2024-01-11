@@ -1,17 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { StatusEntity } from './entities/status.entity';
+import { PrismaService } from './prisma.service';
 
 @Injectable()
 export class StatusService {
-  private statusList: StatusEntity[] = [
-    { id: 1, description: 'Pending' },
-    { id: 2, description: 'Running' },
-    { id: 3, description: 'Blocked' },
-    { id: 4, description: 'Completed' },
-  ];
+  constructor(private readonly prisma: PrismaService) {}
 
   // Get all status
   getAllStatus() {
-    return this.statusList;
+    return this.prisma.status.findMany();
   }
 }
