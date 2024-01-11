@@ -1,19 +1,41 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
+import { Task } from '@prisma/client';
 import { TasksService } from './tasks.service';
-import { Task } from './types/Task';
-import { UpdateTaskStatus } from './types/update-task-status';
 
 @Controller('tasks')
 export class TasksController {
-  constructor(private taskService: TasksService) {}
+  constructor(private readonly tasksService: TasksService) {}
 
-  @Get()
-  async getAllTasks(): Promise<Task[]> {
-    return await this.taskService.getAllTasks({});
+  @Post()
+  create(@Body() task: Task) {
+    return this.tasksService.create(task);
   }
 
-  @Post('/:id')
-  updateTaskStatus(@Body() data: UpdateTaskStatus): Task {
-    return this.taskService.updateTaskStatus(data);
+  @Get()
+  findAll() {
+    return this.tasksService.findAll();
+  }
+
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.tasksService.findOne(+id);
+  }
+
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() task: Task) {
+    return this.tasksService.update(+id, task);
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.tasksService.remove(+id);
   }
 }

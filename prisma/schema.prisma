@@ -4,7 +4,7 @@
 model Status {
   id          Int    @id @default(autoincrement())
   description String
-  Task        Task[]
+  tasks       Task[]
 }
 
 model Task {
