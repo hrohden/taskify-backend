@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { Status } from './types/status';
+import { StatusEntity } from './entities/status.entity';
 
 @Injectable()
 export class StatusService {
-  private statusList: Status[] = [
+  private statusList: StatusEntity[] = [
     { id: 1, description: 'Pending' },
     { id: 2, description: 'Running' },
     { id: 3, description: 'Blocked' },
@@ -11,7 +11,7 @@ export class StatusService {
   ];
 
   // Get all status
-  getAllStatus(): Status[] {
+  getAllStatus() {
     return this.statusList;
   }
 }
