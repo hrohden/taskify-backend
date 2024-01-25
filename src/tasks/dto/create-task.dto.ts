@@ -1,3 +1,5 @@
-import { TaskEntity } from '../entities/task.entity';
-
-export class CreateTaskDto extends TaskEntity {}
+export class CreateTaskDto {
+  title: string;
+  description: string;
+  statusId: number;
+}
